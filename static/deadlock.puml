@@ -1,0 +1,23 @@
+@startuml
+participant "Thread 1" as T1
+participant "Thread 2" as T2
+participant "Lock 1" as L1
+participant "Lock 2" as L2
+
+T1 -> L1: acquire lock
+L1 --> T1: lock acquired
+T1 -> L2: waiting for lock
+
+T2 -> L2: acquire lock
+L2 --> T2: lock acquired
+T2 -> L1: waiting for lock
+
+T1 <-- L2: blocked
+T2 <-- L1: blocked
+
+note over T1, T2
+Deadlock occurs:
+- T1 holds Lock 1 and waits for Lock 2
+- T2 holds Lock 2 and waits for Lock 1
+end note
+@enduml
