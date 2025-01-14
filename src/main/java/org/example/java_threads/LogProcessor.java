@@ -67,6 +67,8 @@ class LogChunkProcessor implements Callable<Long> {
 
     @Override
     public Long call() {
+        //Чтобы увидеть какие потоки выполняются
+        System.out.println(Thread.currentThread().getName());
         long totalBytes = 0;
         for (String line : lines) {
             totalBytes += parseBytes(line);
